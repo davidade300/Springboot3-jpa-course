@@ -3,6 +3,8 @@ package com.myFirstProject.course.entities;
 import java.io.Serializable;
 import java.time.Instant;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,12 +18,13 @@ import jakarta.persistence.Table;
 public class Order implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private Instant instant;
-	
+
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
+	private Instant moment;
+
 	@ManyToOne
 	@JoinColumn(name = "client_id")
 	private User client;
@@ -29,9 +32,9 @@ public class Order implements Serializable {
 	public Order() {
 	}
 
-	public Order(Long id, Instant instant, User client) {
+	public Order(Long id, Instant moment, User client) {
 		this.id = id;
-		this.instant = instant;
+		this.moment = moment;
 		this.client = client;
 	}
 
@@ -44,11 +47,11 @@ public class Order implements Serializable {
 	}
 
 	public Instant getInstant() {
-		return instant;
+		return moment;
 	}
 
-	public void setInstant(Instant instant) {
-		this.instant = instant;
+	public void setInstant(Instant moment) {
+		this.moment = moment;
 	}
 
 	public User getClient() {
