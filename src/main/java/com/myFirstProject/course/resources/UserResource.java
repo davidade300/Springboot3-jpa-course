@@ -24,8 +24,8 @@ public class UserResource {
 		List<User> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
-	// indica que a requisição aceita um id na url
-	@GetMapping(value = "/{id}")
+	
+	@GetMapping(value = "/{id}") // indica que a requisição aceita um id na url
 	public ResponseEntity<User> findById(@ PathVariable Long id) {
 		User obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
